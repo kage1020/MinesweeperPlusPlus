@@ -1,4 +1,4 @@
-import { BoardType } from '@pages';
+import { BoardType, CellState } from '@pages';
 
 export const getInitialMap = (width: number, height: number, mines: number): BoardType => {
   const mineMap = getRandomMines(width * height, mines);
@@ -46,4 +46,8 @@ export const isFinished = (map: BoardType) => {
   const mineCount = map.map((v) => v[1]).filter((v) => v).length;
 
   return flagCount === mineCount || mineCount + openCount === map.length;
+};
+
+export const openZeroGrid = (map: BoardType, index: number) => {
+  let queue: CellState[] = [map[index]];
 };

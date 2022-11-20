@@ -5,7 +5,7 @@ import { useState } from 'react';
 import clsx from 'clsx';
 import { PlayIcon } from '@components/icon';
 import { getInitialMap, isFinished } from '@libs/tools';
-import { Cell, CellState } from '@components/board';
+import { Cell } from '@components/board';
 import { FaBomb } from 'react-icons/fa';
 
 const grid = {
@@ -31,8 +31,10 @@ const grid = {
   },
 };
 
-type ModeType = 'none' | 'easy' | 'normal' | 'hard';
-export type BoardType = [CellState, boolean, number, number][];
+export type ModeType = 'none' | 'easy' | 'normal' | 'hard';
+export type CellType = 'CLOSED' | 'OPEN' | 'FLAG';
+export type CellState = [CellType, boolean, number, number];
+export type BoardType = [CellType, boolean, number, number][];
 
 export default function Home() {
   const [mode, setMode] = useState<ModeType>('none');
@@ -41,11 +43,11 @@ export default function Home() {
   const gridCount = board.map((v) => v[0] === 'CLOSED').filter((v) => v).length;
   const mineCount = grid[mode].mines - board.map((v) => v[0] === 'FLAG').filter((v) => v).length;
 
-  const handleAction = (state: CellState, index: number) => {
-    if (state === 'OPEN' && board[index][1]) setScene('lose');
+  const handleAction = (type: CellType, index: number) => {
+    if (type === 'OPEN' && board[index][1]) setScene('lose');
     else {
       const newBoard = board.map((_, i) =>
-        i === index ? [state, board[i][1], board[i][2], board[i][3]] : board[i]
+        i === index ? [type, board[i][1], board[i][2], board[i][3]] : board[i]
       );
       setBoard(newBoard as BoardType);
       if (isFinished(newBoard as BoardType)) setScene('win');
@@ -192,7 +194,7 @@ export default function Home() {
                           <Cell
                             key={j}
                             index={i * grid[mode].width + j}
-                            state={board[i * grid[mode].width + j]}
+                            type={board[i * grid[mode].width + j]}
                             setAction={handleAction}
                           />
                         ))}

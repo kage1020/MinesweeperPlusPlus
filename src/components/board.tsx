@@ -1,19 +1,18 @@
 import clsx from 'clsx';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { useState } from 'react';
 import { HiFlag, HiOutlineTrash } from 'react-icons/hi2';
 import { TbShovel } from 'react-icons/tb';
 import { FaBomb } from 'react-icons/fa';
-
-export type CellState = 'CLOSED' | 'OPEN' | 'FLAG';
+import { CellType } from '@pages';
 
 export const Cell = ({
-  state,
+  type,
   index,
   setAction,
 }: {
-  state: [CellState, boolean, number, number];
+  type: [CellType, boolean, number, number];
   index: number;
-  setAction: (state: CellState, index: number) => void;
+  setAction: (type: CellType, index: number) => void;
 }) => {
   const [selected, setSelect] = useState(false);
   const onDig = () => {
@@ -21,7 +20,7 @@ export const Cell = ({
     setSelect(false);
   };
   const onFlag = () => {
-    setAction(state[0] === 'FLAG' ? 'CLOSED' : 'FLAG', index);
+    setAction(type[0] === 'FLAG' ? 'CLOSED' : 'FLAG', index);
     setSelect(false);
   };
   return (
@@ -29,23 +28,23 @@ export const Cell = ({
       <button
         className={clsx(
           'block relative w-[40px] h-[40px]',
-          state[0] === 'CLOSED' && 'bg-gray-800 hover:bg-rose-400',
-          state[0] === 'OPEN' && 'bg-green-500',
-          state[0] === 'FLAG' && 'bg-yellow-300',
+          type[0] === 'CLOSED' && 'bg-gray-800 hover:bg-rose-400',
+          type[0] === 'OPEN' && 'bg-green-500',
+          type[0] === 'FLAG' && 'bg-yellow-300',
           !selected && 'z-10',
           selected && 'z-30'
         )}
-        disabled={state[0] === 'OPEN'}
-        onClick={() => setSelect(state[0] !== 'OPEN' && !selected)}
+        disabled={type[0] === 'OPEN'}
+        onClick={() => setSelect(type[0] !== 'OPEN' && !selected)}
       >
-        {/* {state[0] === 'OPEN' && !state[1] && Math.ceil(state[2] * state[3])} */}
-        {(state[0] === 'OPEN' && !state[1] && Math.ceil(state[2] * state[3])) || ''}
-        {state[0] === 'FLAG' && (
+        {/* {type[0] === 'OPEN' && !type[1] && Math.ceil(type[2] * type[3])} */}
+        {(type[0] === 'OPEN' && !type[1] && Math.ceil(type[2] * type[3])) || ''}
+        {type[0] === 'FLAG' && (
           <div className='grid place-items-center'>
             <HiFlag size={30} />
           </div>
         )}
-        {state[0] === 'OPEN' && state[1] && <FaBomb size={30} />}
+        {type[0] === 'OPEN' && type[1] && <FaBomb size={30} />}
       </button>
       <div
         className={clsx(
@@ -65,8 +64,8 @@ export const Cell = ({
         )}
         onClick={onFlag}
       >
-        {state[0] === 'FLAG' && <HiOutlineTrash size={selected ? 40 : 0} />}
-        {state[0] === 'CLOSED' && <HiFlag size={selected ? 40 : 0} />}
+        {type[0] === 'FLAG' && <HiOutlineTrash size={selected ? 40 : 0} />}
+        {type[0] === 'CLOSED' && <HiFlag size={selected ? 40 : 0} />}
       </div>
       {selected && (
         <div className='z-20 fixed inset-0 bg-transparent' onClick={() => setSelect(false)}></div>
