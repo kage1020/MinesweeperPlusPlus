@@ -4,7 +4,7 @@ import logo from '../../public/mpp.svg';
 import { useState } from 'react';
 import clsx from 'clsx';
 import { PlayIcon } from '@components/icon';
-import { getInitialMap, isFinished } from '@libs/tools';
+import { getInitialMap, isFinished, openZeroGrid } from '@libs/tools';
 import { Cell } from '@components/board';
 import { FaBomb } from 'react-icons/fa';
 
@@ -46,11 +46,16 @@ export default function Home() {
   const handleAction = (type: CellType, index: number) => {
     if (type === 'OPEN' && board[index][1]) setScene('lose');
     else {
-      const newBoard = board.map((_, i) =>
-        i === index ? [type, board[i][1], board[i][2], board[i][3]] : board[i]
+      const newBoard = openZeroGrid(
+        board.map((_, i) =>
+          i === index ? [type, board[i][1], board[i][2], board[i][3]] : board[i]
+        ),
+        index,
+        grid[mode].width,
+        grid[mode].height
       );
-      setBoard(newBoard as BoardType);
-      if (isFinished(newBoard as BoardType)) setScene('win');
+      setBoard(newBoard);
+      if (isFinished(newBoard)) setScene('win');
     }
   };
 

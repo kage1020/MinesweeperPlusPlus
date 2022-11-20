@@ -48,6 +48,29 @@ export const isFinished = (map: BoardType) => {
   return flagCount === mineCount || mineCount + openCount === map.length;
 };
 
-export const openZeroGrid = (map: BoardType, index: number) => {
-  let queue: CellState[] = [map[index]];
+export const openZeroGrid = (map: BoardType, index: number, width: number, height: number) => {
+  const newMap = map.slice();
+  let queue: number[] = [];
+  let target = index;
+  const minmax = (i: number) => Math.max(-1, Math.min(i, width * height));
+
+  do {
+    console.log({ queue });
+    if (!map[target][1]) {
+      newMap[target][0] = 'OPEN';
+      if (map[target][3] === 0) {
+        const candidates = [
+          minmax(map[target][3] >= 1 ? -1 : target - width),
+          minmax(target % width === 0 && map[target][3] >= 1 ? -1 : target - 1),
+          minmax(target % width === width - 1 && map[target][3] >= 1 ? -1 : target + 1),
+          minmax(map[target][3] >= 1 ? -1 : target + width),
+        ].filter((v) => v !== -1 && v !== width * height && map[v][0] === 'CLOSED');
+        queue.push(...candidates);
+      }
+    }
+
+    target = queue.pop() ?? -1;
+  } while (queue.length !== 0);
+
+  return map;
 };
