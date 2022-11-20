@@ -56,14 +56,14 @@ export default function Home() {
   };
 
   return (
-    <>
+    <div className='min-w-max'>
       <Head>
         <title>Minesweeper++</title>
         <meta name='description' content='Minesweeper++' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <main className='p-4 min-w-[640px] w-screen h-screen flex flex-col'>
+      <main className='p-4 min-h-[90vh] flex flex-col'>
         <h1
           className='flex items-center justify-center border-b-[5px] border-red-700 pb-2 cursor-pointer'
           onClick={() => resetGame()}
@@ -152,7 +152,7 @@ export default function Home() {
           {/* play scene */}
           <div
             className={clsx(
-              'relative grid gap-1 place-items-center transition-all w-fit duration-300 ease-in-out z-10 bg-gray-700 p-4 mx-8',
+              'relative grid gap-1 place-items-center transition-all w-fit duration-300 ease-in-out z-10 bg-gray-700 p-4 mx-16',
               scene !== 'play' && 'opacity-0 absolute z-0 h-0'
             )}
           >
@@ -197,6 +197,6 @@ export default function Home() {
           フィードバック
         </a>
       </footer>
-    </>
+    </div>
   );
 }

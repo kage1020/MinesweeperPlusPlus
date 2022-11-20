@@ -49,31 +49,27 @@ export const Cell = ({
       </button>
       <div
         className={clsx(
-          'transition-all duration-300 ease-in absolute bg-blue-500 rounded-full cursor-pointer grid place-items-center',
+          'transition-all duration-100 ease-in absolute bg-blue-500 rounded-full cursor-pointer grid place-items-center',
           !selected && 'w-0 h-0 opacity-0 top-0 right-0 left-0 z-0',
-          selected && 'w-[80px] h-[80px] opacity-1 -top-1/2 right-[110%] z-30'
+          selected && 'w-[60px] h-[60px] opacity-1 -top-1/4 right-[110%] z-30'
         )}
         onClick={onDig}
       >
-        <TbShovel size={selected ? 50 : 0} />
+        <TbShovel size={selected ? 40 : 0} />
       </div>
       <div
         className={clsx(
-          'transition-all duration-300 ease-in absolute bg-purple-500 rounded-full cursor-pointer grid place-items-center',
+          'transition-all duration-100 ease-in absolute bg-purple-500 rounded-full cursor-pointer grid place-items-center',
           !selected && 'w-0 h-0 opacity-0 top-0 left-0 z-0',
-          selected &&
-            'w-[6vw] h-[6vw] min-w-[80px] min-h-[80px] opacity-1 -top-1/2 left-[110%] z-30'
+          selected && 'w-[60px] h-[60px] opacity-1 -top-1/4 left-[110%] z-30'
         )}
         onClick={onFlag}
       >
-        {state[0] === 'FLAG' && <HiOutlineTrash size={selected ? 50 : 0} />}
-        {state[0] === 'CLOSED' && <HiFlag size={selected ? 50 : 0} />}
+        {state[0] === 'FLAG' && <HiOutlineTrash size={selected ? 40 : 0} />}
+        {state[0] === 'CLOSED' && <HiFlag size={selected ? 40 : 0} />}
       </div>
       {selected && (
-        <div
-          className='z-20 w-screen h-screen fixed inset-0 bg-transparent'
-          onClick={() => setSelect(false)}
-        ></div>
+        <div className='z-20 fixed inset-0 bg-transparent' onClick={() => setSelect(false)}></div>
       )}
     </div>
   );
