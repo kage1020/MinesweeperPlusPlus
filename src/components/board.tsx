@@ -39,7 +39,7 @@ export const Cell = ({
         onClick={() => setSelect(state[0] !== 'OPEN' && !selected)}
       >
         {/* {state[0] === 'OPEN' && !state[1] && Math.ceil(state[2] * state[3])} */}
-        {state[0] === 'OPEN' && !state[1] && Math.ceil(state[2] * state[3])}
+        {(state[0] === 'OPEN' && !state[1] && Math.ceil(state[2] * state[3])) || ''}
         {state[0] === 'FLAG' && (
           <div className='grid place-items-center'>
             <HiFlag size={30} />

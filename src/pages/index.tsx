@@ -6,6 +6,7 @@ import clsx from 'clsx';
 import { PlayIcon } from '@components/icon';
 import { getInitialMap, isFinished } from '@libs/tools';
 import { Cell, CellState } from '@components/board';
+import { FaBomb } from 'react-icons/fa';
 
 const grid = {
   none: {
@@ -37,6 +38,8 @@ export default function Home() {
   const [mode, setMode] = useState<ModeType>('none');
   const [scene, setScene] = useState<'start' | 'select' | 'play' | 'win' | 'lose'>('start');
   const [board, setBoard] = useState<BoardType>([]);
+  const gridCount = board.map((v) => v[0] === 'CLOSED').filter((v) => v).length;
+  const mineCount = grid[mode].mines - board.map((v) => v[0] === 'FLAG').filter((v) => v).length;
 
   const handleAction = (state: CellState, index: number) => {
     if (state === 'OPEN' && board[index][1]) setScene('lose');
@@ -71,11 +74,12 @@ export default function Home() {
           <Image src={logo} alt='minesweeper++' width={50} />
           <span className='text-4xl mx-4 tracking-wide font-bold'>Minesweeper++</span>
         </h1>
-        <div className='flex-grow flex flex-col justify-center items-center relative'>
+        <div className='flex-grow flex flex-col justify-center items-center relative my-4'>
           {/* start scene */}
           <div
             className={clsx(
-              'grid place-items-center gap-y-8 transition-all duration-300 ease-in-out w-fit z-10',
+              'grid place-items-center gap-y-8 transition-all duration-300 ease-in-out w-fit',
+              scene === 'start' && 'z-10 opacity-100',
               scene !== 'start' && 'opacity-0 absolute z-0'
             )}
           >
@@ -94,7 +98,8 @@ export default function Home() {
           {/* select scene */}
           <div
             className={clsx(
-              'transition-all duration-300 ease-in-out z-10',
+              'transition-all duration-300 ease-in-out',
+              scene === 'select' && 'opacity-100 z-10',
               scene !== 'select' && 'opacity-0 absolute z-0'
             )}
           >
@@ -136,8 +141,8 @@ export default function Home() {
             <div className='grid justify-center p-4'>
               <button
                 className={clsx(
-                  'py-4 text-center text-xl text-white font-semibold transition-all duration-200 ease-in w-[240px]',
-                  mode === 'none' ? 'bg-gray-500' : 'bg-purple-500'
+                  'py-4 text-center text-xl font-semibold transition-all duration-200 ease-in w-[240px]',
+                  mode === 'none' ? 'bg-gray-400 text-gray-300' : 'bg-purple-500 text-white'
                 )}
                 disabled={mode === 'none'}
                 onClick={() => {
@@ -152,35 +157,65 @@ export default function Home() {
           {/* play scene */}
           <div
             className={clsx(
-              'relative grid gap-1 place-items-center transition-all w-fit duration-300 ease-in-out z-10 bg-gray-700 p-4 mx-16',
+              'relative transition-all w-fit duration-300 ease-in-out mx-16',
+              scene === 'play' && 'opacity-100 z-10',
               scene !== 'play' && 'opacity-0 absolute z-0 h-0'
             )}
           >
-            {Array(grid[mode].height)
-              .fill(0)
-              .map((_, i) => (
-                <div
-                  key={i}
-                  className={clsx(
-                    'relative grid gap-1',
-                    scene !== 'play' && 'opacity-0 absolute z-0',
-                    mode === 'easy' && 'grid-cols-9',
-                    (mode === 'normal' || mode === 'hard') && 'grid-cols-16'
-                  )}
-                >
-                  {scene === 'play' &&
-                    Array(grid[mode].width)
-                      .fill(0)
-                      .map((_, j) => (
-                        <Cell
-                          key={j}
-                          index={i * grid[mode].width + j}
-                          state={board[i * grid[mode].width + j]}
-                          setAction={handleAction}
-                        />
-                      ))}
-                </div>
-              ))}
+            <div className='border-[3px] rounded border-gray-700 mb-4 p-4 flex justify-between text-xl'>
+              <div className='flex items-center'>
+                残り
+                <FaBomb className='mx-1' />
+                数:<span className='ml-1'>{mineCount}</span>
+              </div>
+              <div>
+                残りマス数:<span className='ml-1'>{gridCount}</span>
+              </div>
+            </div>
+            <div className='relative grid gap-1 place-items-center bg-gray-700 p-4'>
+              {Array(grid[mode].height)
+                .fill(0)
+                .map((_, i) => (
+                  <div
+                    key={i}
+                    className={clsx(
+                      'relative grid gap-1',
+                      scene !== 'play' && 'opacity-0 absolute z-0',
+                      mode === 'easy' && 'grid-cols-9',
+                      (mode === 'normal' || mode === 'hard') && 'grid-cols-16'
+                    )}
+                  >
+                    {scene === 'play' &&
+                      Array(grid[mode].width)
+                        .fill(0)
+                        .map((_, j) => (
+                          <Cell
+                            key={j}
+                            index={i * grid[mode].width + j}
+                            state={board[i * grid[mode].width + j]}
+                            setAction={handleAction}
+                          />
+                        ))}
+                  </div>
+                ))}
+            </div>
+          </div>
+          {/* result scene */}
+          <div
+            className={clsx(
+              'transition-all duration-300 ease-in-out grid gap-8',
+              (scene === 'win' || scene === 'lose') && 'opacity-100 z-10',
+              scene !== 'win' && scene !== 'lose' && 'opacity-0 absolute z-0'
+            )}
+          >
+            {scene === 'win' && <div className='text-black text-6xl'>You Win!</div>}
+            {scene === 'lose' && <div className='text-black text-6xl'>You Lose!</div>}
+            <button
+              className='text-center p-4 bg-blue-500 text-white font-bold text-xl'
+              onClick={resetGame}
+            >
+              もう一度遊ぶ
+            </button>
           </div>
         </div>
       </main>
