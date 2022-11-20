@@ -41,7 +41,9 @@ export type BoardType = [CellType, boolean, number, number][];
 export default function Home() {
   const { isDark, toggleDark } = useDarkMode();
   const [mode, setMode] = useState<ModeType>('none');
-  const [scene, setScene] = useState<'start' | 'select' | 'play' | 'win' | 'lose'>('start');
+  const [scene, setScene] = useState<'start' | 'desc' | 'select' | 'play' | 'win' | 'lose'>(
+    'start'
+  );
   const [board, setBoard] = useState<BoardType>([]);
   const gridCount = board.map((v) => v[0] === 'CLOSED').filter((v) => v).length;
   const mineCount = grid[mode].mines - board.map((v) => v[0] === 'FLAG').filter((v) => v).length;
@@ -101,13 +103,13 @@ export default function Home() {
           {/* start scene */}
           <div
             className={clsx(
-              'grid place-items-center gap-y-8 transition-all duration-300 ease-in-out w-fit mt-16',
+              'grid place-items-center gap-y-8 transition-all duration-300 ease-in-out w-fit',
               scene === 'start' && 'z-10 opacity-100',
               scene !== 'start' && 'opacity-0 absolute z-0'
             )}
           >
-            <button onClick={() => setScene('select')}>
-              <PlayIcon className='w-[300px] h-[300px]' />
+            <button onClick={() => setScene('desc')}>
+              <PlayIcon className='w-[200px] h-[200px]' />
             </button>
             <a
               className='border-4 rounded p-4 text-xl text-blue-500 border-blue-500 dark:text-blue-300 dark:border-blue-300'
@@ -117,6 +119,42 @@ export default function Home() {
             >
               ゲーム改善のためアンケートにお答えください
             </a>
+          </div>
+          {/* disc scene */}
+          <div
+            className={clsx(
+              'grid place-items-center gap-y-8 transition-all duration-300 ease-in-out w-fit',
+              scene === 'desc' && 'z-10 opacity-100',
+              scene !== 'desc' && 'opacity-0 absolute z-0'
+            )}
+          >
+            <div className='border-[3px] border-gray-700 p-4 rounded max-w-[450px] tracking-wide dark:text-white dark:border-white'>
+              <p className='mb-6'>このマインスイーパーの決着は神が握っている</p>
+              <p className='mb-1'>なぜまわりの地雷の数が正確にわかるのだろう？</p>
+              <p className='mb-1'>見つけた地雷の数が実際の半分・・・なんてときもあるだろう</p>
+              <p className='mb-6'>そんな不確定要素を掛け合わせたゲーム</p>
+              <p className='mb-1'>タイルを開けたときに表示される数字は、周りの地雷の数が</p>
+              <p className='mb-1'>
+                <span className='font-bold mx-1 text-red-500'>少なくともその数だけある</span>
+                という印
+              </p>
+              <p className='mb-1'>さすがに数字が1のときは周りには地雷が必ず1個しかないが、</p>
+              <p className='mb-6'>それ以上では．．．</p>
+              <p className='mb-6'>
+                極限まで頭をひねらせ、タイルとにらめっこし、最後には神頼みまでしてこのほぼクリア不可能なゲームのクリア画面を見てほしい
+              </p>
+              <div className='grid justify-center p-2'>
+                <button
+                  className={clsx(
+                    'py-4 text-center text-xl font-semibold transition-all duration-200 ease-in w-[240px]',
+                    'bg-purple-500 text-white'
+                  )}
+                  onClick={() => setScene('select')}
+                >
+                  難易度を選択する
+                </button>
+              </div>
+            </div>
           </div>
           {/* select scene */}
           <div
@@ -231,9 +269,25 @@ export default function Home() {
               scene !== 'win' && scene !== 'lose' && 'opacity-0 absolute z-0'
             )}
           >
-            {scene === 'win' && <div className='text-black text-6xl dark:text-white'>You Win!</div>}
+            {scene === 'win' && (
+              <div className='text-center'>
+                <div className='text-lime-600 font-bold text-8xl my-12 dark:text-lime-500'>
+                  You Win!
+                </div>
+                <div className='dark:text-white'>
+                  素晴らしい！！神は君に微笑んだらしい。この調子で続けたまえ。
+                </div>
+              </div>
+            )}
             {scene === 'lose' && (
-              <div className='text-black text-6xl dark:text-white'>You Lose!</div>
+              <div className='text-center'>
+                <div className='text-red-700 font-bold text-8xl my-12 dark:text-red-600'>
+                  You Lose!
+                </div>
+                <div className='dark:text-white'>
+                  やはりクリアは無理か．．．気が向いたら再び挑戦するといい。
+                </div>
+              </div>
             )}
             <button
               className='text-center p-4 bg-blue-500 text-white font-bold text-xl'
