@@ -7,6 +7,8 @@ import { PlayIcon } from '@components/icon';
 import { getInitialMap, isFinished, openZeroGrid } from '@libs/tools';
 import { Cell } from '@components/board';
 import { FaBomb } from 'react-icons/fa';
+import { MdDarkMode, MdOutlineLightMode } from 'react-icons/md';
+import useDarkMode from '@libs/useDarkMode';
 
 const grid = {
   none: {
@@ -37,6 +39,7 @@ export type CellState = [CellType, boolean, number, number];
 export type BoardType = [CellType, boolean, number, number][];
 
 export default function Home() {
+  const { isDark, toggleDark } = useDarkMode();
   const [mode, setMode] = useState<ModeType>('none');
   const [scene, setScene] = useState<'start' | 'select' | 'play' | 'win' | 'lose'>('start');
   const [board, setBoard] = useState<BoardType>([]);
@@ -46,15 +49,14 @@ export default function Home() {
   const handleAction = (type: CellType, index: number) => {
     if (type === 'OPEN' && board[index][1]) setScene('lose');
     else {
-      const newBoard = openZeroGrid(
-        board.map((_, i) =>
-          i === index ? [type, board[i][1], board[i][2], board[i][3]] : board[i]
-        ),
-        index,
-        grid[mode].width,
-        grid[mode].height
+      const newBoard: BoardType = board.map((_, i) =>
+        i === index ? [type, board[i][1], board[i][2], board[i][3]] : board[i]
       );
-      setBoard(newBoard);
+      setBoard(
+        type === 'OPEN'
+          ? openZeroGrid(newBoard, index, grid[mode].width, grid[mode].height)
+          : newBoard
+      );
       if (isFinished(newBoard)) setScene('win');
     }
   };
@@ -79,13 +81,27 @@ export default function Home() {
           onClick={() => resetGame()}
         >
           <Image src={logo} alt='minesweeper++' width={50} />
-          <span className='text-4xl mx-4 tracking-wide font-bold'>Minesweeper++</span>
+          <span className='text-4xl mx-4 tracking-wide font-bold dark:text-white'>
+            Minesweeper++
+          </span>
         </h1>
         <div className='flex-grow flex flex-col justify-center items-center relative my-4'>
+          {/* light/dark theme */}
+          {scene === 'start' && (
+            <button
+              onClick={() => toggleDark()}
+              className={clsx(
+                'absolute right-4 top-0 border-[3px] rounded border-gray-700 p-2 z-20 dark:border-white'
+              )}
+            >
+              {isDark && <MdDarkMode color='white' size={40} />}
+              {!isDark && <MdOutlineLightMode color='black' size={40} />}
+            </button>
+          )}
           {/* start scene */}
           <div
             className={clsx(
-              'grid place-items-center gap-y-8 transition-all duration-300 ease-in-out w-fit',
+              'grid place-items-center gap-y-8 transition-all duration-300 ease-in-out w-fit mt-16',
               scene === 'start' && 'z-10 opacity-100',
               scene !== 'start' && 'opacity-0 absolute z-0'
             )}
@@ -94,7 +110,7 @@ export default function Home() {
               <PlayIcon className='w-[300px] h-[300px]' />
             </button>
             <a
-              className='border-4 rounded p-4 text-xl text-blue-500 border-blue-500'
+              className='border-4 rounded p-4 text-xl text-blue-500 border-blue-500 dark:text-blue-300 dark:border-blue-300'
               href='https://forms.gle/k4sbBw6YyqHXzeYi9'
               target='_blank'
               rel='noopener noreferrer'
@@ -110,7 +126,7 @@ export default function Home() {
               scene !== 'select' && 'opacity-0 absolute z-0'
             )}
           >
-            <div className='text-3xl font-semibold text-gray-800 text-center p-8'>
+            <div className='text-3xl font-semibold text-gray-800 text-center p-8 dark:text-white'>
               難易度を選択してください
             </div>
             <div className='grid gap-4 justify-center items-center text-xl text-center p-4'>
@@ -169,7 +185,7 @@ export default function Home() {
               scene !== 'play' && 'opacity-0 absolute z-0 h-0'
             )}
           >
-            <div className='border-[3px] rounded border-gray-700 mb-4 p-4 flex justify-between text-xl'>
+            <div className='border-[3px] rounded border-gray-700 mb-4 p-4 flex justify-between text-xl dark:text-white'>
               <div className='flex items-center'>
                 残り
                 <FaBomb className='mx-1' />
@@ -215,8 +231,10 @@ export default function Home() {
               scene !== 'win' && scene !== 'lose' && 'opacity-0 absolute z-0'
             )}
           >
-            {scene === 'win' && <div className='text-black text-6xl'>You Win!</div>}
-            {scene === 'lose' && <div className='text-black text-6xl'>You Lose!</div>}
+            {scene === 'win' && <div className='text-black text-6xl dark:text-white'>You Win!</div>}
+            {scene === 'lose' && (
+              <div className='text-black text-6xl dark:text-white'>You Lose!</div>
+            )}
             <button
               className='text-center p-4 bg-blue-500 text-white font-bold text-xl'
               onClick={resetGame}
@@ -227,15 +245,21 @@ export default function Home() {
         </div>
       </main>
 
-      <footer className='p-4 w-full text-center flex justify-center space-x-4'>
+      <footer className='p-2 w-full text-center flex justify-center space-x-4 dark:text-white'>
         <a
-          href='https://codepen.io/ohheckitsbeck/pen/gXoXjP'
+          href='https://github.com/kage1020'
           target='_blank'
           rel='noopener noreferrer'
+          className='p-2'
         >
           &copy; kage1020
         </a>
-        <a href='https://forms.gle/k4sbBw6YyqHXzeYi9' target='_blank' rel='noopener noreferrer'>
+        <a
+          href='https://forms.gle/k4sbBw6YyqHXzeYi9'
+          target='_blank'
+          rel='noopener noreferrer'
+          className='p-2'
+        >
           フィードバック
         </a>
       </footer>
