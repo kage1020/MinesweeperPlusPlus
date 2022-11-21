@@ -14,6 +14,7 @@ const Button = ({
 }) => {
   return (
     <button
+      type='button'
       className={clsx(
         'font-semibold text-xl transition-all duration-200 ease-in w-[270px] text-center p-4',
         className

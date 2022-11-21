@@ -119,7 +119,7 @@ export default function Home() {
               scene !== 'start' && 'opacity-0 absolute z-0'
             )}
           >
-            <button onClick={() => setScene('desc')}>
+            <button type='button' onClick={() => setScene('desc')}>
               <PlayIcon className='w-[300px] h-[300px]' />
             </button>
             <a

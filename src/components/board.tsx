@@ -27,7 +27,7 @@ export const Cell = ({
     <div className='relative'>
       <button
         className={clsx(
-          'block relative w-[40px] h-[40px]',
+          'block relative w-[40px] h-[40px] text-lg',
           type[0] === 'CLOSED' && 'bg-gray-800 hover:bg-rose-400',
           type[0] === 'OPEN' && 'bg-green-500',
           type[0] === 'FLAG' && 'bg-yellow-300',
