@@ -86,6 +86,15 @@ export default function Home() {
         <title>Minesweeper++</title>
         <meta name='description' content='Minesweeper++' />
         <link rel='icon' href='/favicon.ico' />
+        <link rel='manifest' href='manifest.json' />
+        <link rel='apple-touch-icon' href='apple-touch-icon.png' />
+        <meta name='description' content='new Minesweeper game with lack' />
+        <meta name='theme-color' content='#111827' />
+        <meta name='twitter:card' content='summary_large_image' />
+        <meta name='twitter:site' content='@kage1020' />
+        <meta name='twitter:title' content='Minesweeper++' />
+        <meta name='twitter:description' content='new Minesweeper game with lack' />
+        <meta name='twitter:image' content='/mpp.png' />
       </Head>
 
       <main className='p-4 min-h-[90vh] flex flex-col'>
