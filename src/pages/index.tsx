@@ -10,6 +10,7 @@ import { FaBomb } from 'react-icons/fa';
 import { MdDarkMode, MdOutlineLightMode } from 'react-icons/md';
 import useDarkMode from '@libs/useDarkMode';
 import { useStopwatch } from 'react-timer-hook';
+import Button from '@components/button';
 
 const grid = {
   none: {
@@ -45,13 +46,16 @@ export default function Home() {
   const [mode, setMode] = useState<ModeType>('none');
   const [scene, setScene] = useState<SceneType>('start');
   const [board, setBoard] = useState<BoardType>([]);
+  const [score, setScore] = useState(0);
   const gridCount = board.map((v) => v[0] === 'CLOSED').filter((v) => v).length;
   const mineCount = grid[mode].mines - board.map((v) => v[0] === 'FLAG').filter((v) => v).length;
-  const { seconds, minutes, hours, start, pause } = useStopwatch({});
+  const { seconds, minutes, hours, start, pause, reset } = useStopwatch({});
 
   const handleAction = (type: CellType, index: number) => {
-    if (type === 'OPEN' && board[index][1]) setScene('lose');
-    else {
+    if (type === 'OPEN' && board[index][1]) {
+      pause();
+      setScene('lose');
+    } else {
       const newBoard: BoardType = board.map((_, i) =>
         i === index ? [type, board[i][1], board[i][2], board[i][3]] : board[i]
       );
@@ -60,8 +64,10 @@ export default function Home() {
           ? openZeroGrid(newBoard, index, grid[mode].width, grid[mode].height)
           : newBoard
       );
+      setScore(score + 10 * board[index][3]);
       if (isFinished(newBoard)) {
         pause();
+        setScore(score + 1000);
         setScene('win');
       }
     }
@@ -71,6 +77,7 @@ export default function Home() {
     setMode('none');
     setScene('start');
     setBoard([]);
+    reset();
   };
 
   return (
@@ -100,8 +107,8 @@ export default function Home() {
                 'absolute right-4 top-0 border-[3px] rounded border-gray-700 p-2 z-20 dark:border-white'
               )}
             >
-              {isDark && <MdDarkMode color='white' size={40} />}
-              {!isDark && <MdOutlineLightMode color='black' size={40} />}
+              {isDark && <MdDarkMode color='white' size={35} />}
+              {!isDark && <MdOutlineLightMode color='black' size={35} />}
             </button>
           )}
           {/* start scene */}
@@ -113,7 +120,7 @@ export default function Home() {
             )}
           >
             <button onClick={() => setScene('desc')}>
-              <PlayIcon className='w-[200px] h-[200px]' />
+              <PlayIcon className='w-[300px] h-[300px]' />
             </button>
             <a
               className='border-4 rounded p-4 text-xl text-blue-500 border-blue-500 dark:text-blue-300 dark:border-blue-300'
@@ -132,31 +139,26 @@ export default function Home() {
               scene !== 'desc' && 'opacity-0 absolute z-0'
             )}
           >
-            <div className='border-[3px] border-gray-700 p-4 rounded max-w-[450px] tracking-wide dark:text-white dark:border-white'>
+            <div className='border-[3px] border-gray-700 p-4 rounded max-w-[440px] md:max-w-[540px] text-justify tracking-wider md:text-xl dark:text-white dark:border-white'>
               <p className='mb-6'>このマインスイーパーの決着は神が握っている</p>
               <p className='mb-1'>なぜまわりの地雷の数が正確にわかるのだろう？</p>
               <p className='mb-1'>見つけた地雷の数が実際の半分・・・なんてときもあるだろう</p>
               <p className='mb-6'>そんな不確定要素を掛け合わせたゲーム</p>
-              <p className='mb-1'>タイルを開けたときに表示される数字は、周りの地雷の数が</p>
               <p className='mb-1'>
+                タイルを開けたときに表示される数字は、周りの地雷の数が
                 <span className='font-bold mx-1 text-red-500'>少なくともその数だけある</span>
                 という印
               </p>
-              <p className='mb-1'>さすがに数字が1のときは周りには地雷が必ず1個しかないが、</p>
-              <p className='mb-6'>それ以上では．．．</p>
+              <p className='mb-6'>
+                さすがに数字が1のときは周りには地雷が必ず1個しかないが、それ以上では．．．
+              </p>
               <p className='mb-6'>
                 極限まで頭をひねらせ、タイルとにらめっこし、最後には神頼みまでしてこのほぼクリア不可能なゲームのクリア画面を見てほしい
               </p>
               <div className='grid justify-center p-2'>
-                <button
-                  className={clsx(
-                    'py-4 text-center text-xl font-semibold transition-all duration-200 ease-in w-[240px]',
-                    'bg-purple-500 text-white'
-                  )}
-                  onClick={() => setScene('select')}
-                >
+                <Button className='bg-purple-500 text-white' onClick={() => setScene('select')}>
                   難易度を選択する
-                </button>
+                </Button>
               </div>
             </div>
           </div>
@@ -172,43 +174,39 @@ export default function Home() {
               難易度を選択してください
             </div>
             <div className='grid gap-4 justify-center items-center text-xl text-center p-4'>
-              <div
+              <Button
                 className={clsx(
-                  'px-20 py-4 text-white font-semibold bg-blue-500 hover:bg-green-400 transition-all duration-200 ease-in max-w-[240px]',
+                  'bg-blue-500 hover:bg-green-400 text-white',
                   mode === 'easy' && 'bg-green-400 hover:bg-none'
                 )}
-                role='button'
                 onClick={() => setMode('easy')}
               >
                 簡単
-              </div>
-              <div
+              </Button>
+              <Button
                 className={clsx(
-                  'px-20 py-4 text-white font-semibold bg-blue-500 hover:bg-yellow-400 transition-all duration-200 ease-in w-[240px]',
+                  'bg-blue-500 hover:bg-yellow-400 text-white',
                   mode === 'normal' && 'bg-yellow-400 hover:bg-none'
                 )}
-                role='button'
                 onClick={() => setMode('normal')}
               >
                 普通
-              </div>
-              <div
+              </Button>
+              <Button
                 className={clsx(
-                  'py-4 text-white font-semibold bg-blue-500 hover:bg-rose-400 transition-all duration-200 ease-in w-[240px]',
+                  'bg-blue-500 hover:bg-rose-400 text-white',
                   mode === 'hard' && 'bg-rose-400 hover:bg-none'
                 )}
-                role='button'
                 onClick={() => setMode('hard')}
               >
                 難しい
-              </div>
+              </Button>
             </div>
             <div className='grid justify-center p-4'>
-              <button
-                className={clsx(
-                  'py-4 text-center text-xl font-semibold transition-all duration-200 ease-in w-[240px]',
+              <Button
+                className={
                   mode === 'none' ? 'bg-gray-400 text-gray-300' : 'bg-purple-500 text-white'
-                )}
+                }
                 disabled={mode === 'none'}
                 onClick={() => {
                   setBoard(getInitialMap(grid[mode].width, grid[mode].height, grid[mode].mines));
@@ -217,7 +215,7 @@ export default function Home() {
                 }}
               >
                 ゲームスタート
-              </button>
+              </Button>
             </div>
           </div>
           {/* play scene */}
@@ -275,7 +273,7 @@ export default function Home() {
           {/* result scene */}
           <div
             className={clsx(
-              'transition-all duration-300 ease-in-out grid gap-8',
+              'transition-all duration-300 ease-in-out grid gap-8 place-items-center',
               (scene === 'win' || scene === 'lose') && 'opacity-100 z-10',
               scene !== 'win' && scene !== 'lose' && 'opacity-0 absolute z-0'
             )}
@@ -300,12 +298,22 @@ export default function Home() {
                 </div>
               </div>
             )}
-            <button
-              className='text-center p-4 bg-blue-500 text-white font-bold text-xl'
-              onClick={resetGame}
-            >
+            <div className='border-[3px] w-full border-gray-700 rounded p-4 text-center flex justify-around dark:border-white dark:text-white'>
+              <div>
+                <span className='mr-2'>プレイ時間：</span>
+                {hours !== 0 && <span>{hours}:</span>}
+                <span>
+                  {`0${minutes}`.slice(-2)}:{`0${seconds}`.slice(-2)}
+                </span>
+              </div>
+              <div>
+                <span className='mr-2'>スコア：</span>
+                {score}
+              </div>
+            </div>
+            <Button className='bg-blue-500 text-white' onClick={resetGame}>
               もう一度遊ぶ
-            </button>
+            </Button>
           </div>
         </div>
       </main>
