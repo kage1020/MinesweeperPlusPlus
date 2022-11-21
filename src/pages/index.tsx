@@ -9,6 +9,7 @@ import { Cell } from '@components/board';
 import { FaBomb } from 'react-icons/fa';
 import { MdDarkMode, MdOutlineLightMode } from 'react-icons/md';
 import useDarkMode from '@libs/useDarkMode';
+import { useStopwatch } from 'react-timer-hook';
 
 const grid = {
   none: {
@@ -33,6 +34,7 @@ const grid = {
   },
 };
 
+export type SceneType = 'start' | 'desc' | 'select' | 'play' | 'win' | 'lose';
 export type ModeType = 'none' | 'easy' | 'normal' | 'hard';
 export type CellType = 'CLOSED' | 'OPEN' | 'FLAG';
 export type CellState = [CellType, boolean, number, number];
@@ -41,12 +43,11 @@ export type BoardType = [CellType, boolean, number, number][];
 export default function Home() {
   const { isDark, toggleDark } = useDarkMode();
   const [mode, setMode] = useState<ModeType>('none');
-  const [scene, setScene] = useState<'start' | 'desc' | 'select' | 'play' | 'win' | 'lose'>(
-    'start'
-  );
+  const [scene, setScene] = useState<SceneType>('start');
   const [board, setBoard] = useState<BoardType>([]);
   const gridCount = board.map((v) => v[0] === 'CLOSED').filter((v) => v).length;
   const mineCount = grid[mode].mines - board.map((v) => v[0] === 'FLAG').filter((v) => v).length;
+  const { seconds, minutes, hours, start, pause } = useStopwatch({});
 
   const handleAction = (type: CellType, index: number) => {
     if (type === 'OPEN' && board[index][1]) setScene('lose');
@@ -59,7 +60,10 @@ export default function Home() {
           ? openZeroGrid(newBoard, index, grid[mode].width, grid[mode].height)
           : newBoard
       );
-      if (isFinished(newBoard)) setScene('win');
+      if (isFinished(newBoard)) {
+        pause();
+        setScene('win');
+      }
     }
   };
 
@@ -207,8 +211,9 @@ export default function Home() {
                 )}
                 disabled={mode === 'none'}
                 onClick={() => {
-                  setScene('play');
                   setBoard(getInitialMap(grid[mode].width, grid[mode].height, grid[mode].mines));
+                  setScene('play');
+                  start();
                 }}
               >
                 ゲームスタート
@@ -228,6 +233,12 @@ export default function Home() {
                 残り
                 <FaBomb className='mx-1' />
                 数:<span className='ml-1'>{mineCount}</span>
+              </div>
+              <div>
+                {hours !== 0 && <span>{hours}:</span>}
+                <span>
+                  {`0${minutes}`.slice(-2)}:{`0${seconds}`.slice(-2)}
+                </span>
               </div>
               <div>
                 残りマス数:<span className='ml-1'>{gridCount}</span>

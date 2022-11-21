@@ -55,7 +55,6 @@ export const openZeroGrid = (map: BoardType, index: number, width: number, heigh
   const minmax = (i: number) => Math.max(-1, Math.min(i, width * height));
 
   do {
-    console.log({ queue });
     if (!map[target][1]) {
       newMap[target][0] = 'OPEN';
       if (map[target][3] === 0) {
