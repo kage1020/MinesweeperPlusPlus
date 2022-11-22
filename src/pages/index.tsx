@@ -340,7 +340,7 @@ export default function Home() {
         </div>
       </main>
 
-      <footer className='p-2 w-full text-center flex justify-center space-x-4 dark:text-white'>
+      <footer className='p-2 w-full text-center flex justify-center items-center dark:text-white'>
         <a
           href='https://github.com/kage1020'
           target='_blank'
@@ -353,7 +353,7 @@ export default function Home() {
           href='https://github.com/kage1020/MinesweeperPlusPlus'
           target='_blank'
           rel='noopener noreferrer'
-          className='p-2 underline'
+          className='p-2 underline mr-4'
         >
           MinesweeperPlusPlus
         </a>
