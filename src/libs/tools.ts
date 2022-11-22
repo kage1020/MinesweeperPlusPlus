@@ -60,8 +60,8 @@ export const openZeroGrid = (map: BoardType, index: number, width: number, heigh
       if (map[target][3] === 0) {
         const candidates = [
           minmax(map[target][3] >= 1 ? -1 : target - width),
-          minmax(target % width === 0 && map[target][3] >= 1 ? -1 : target - 1),
-          minmax(target % width === width - 1 && map[target][3] >= 1 ? -1 : target + 1),
+          minmax(target % width === 0 || map[target][3] >= 1 ? -1 : target - 1),
+          minmax(target % width === width - 1 || map[target][3] >= 1 ? -1 : target + 1),
           minmax(map[target][3] >= 1 ? -1 : target + width),
         ].filter((v) => v !== -1 && v !== width * height && map[v][0] === 'CLOSED');
         queue.push(...candidates);
