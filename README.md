@@ -29,26 +29,10 @@ Oを安全なマス、Xを地雷マスとすると、マスを開いたときに
 
 ただ、これでは余りにも難しすぎるので、周りに地雷が1個しかない場合には **必ず1が表示される** ようになっています。
 
-<div style="display:grid;place-items:center;text-align:center;font-size:2rem;margin-bottom:1rem">
-<div style="display:grid;grid-template-columns:repeat(4,1fr);width:240px;border-bottom:1px solid">
-    <div style="height:60px;width:60px;display:grid;place-items:center;border-right:1px solid">O</div>
-    <div style="height:60px;width:60px;display:grid;place-items:center;border-right:1px solid">O</div>
-    <div style="height:60px;width:60px;display:grid;place-items:center;border-right:1px solid">X</div>
-    <div style="height:60px;width:60px;display:grid;place-items:center">O</div>
-</div>
-<div style="display:grid;grid-template-columns:repeat(4,1fr);width:240px;border-bottom:1px solid">
-    <div style="height:60px;width:60px;display:grid;place-items:center;border-right:1px solid">O</div>
-    <div style="height:60px;width:60px;display:grid;place-items:center;border-right:1px solid">1</div>
-    <div style="height:60px;width:60px;display:grid;place-items:center;border-right:1px solid">2</div>
-    <div style="height:60px;width:60px;display:grid;place-items:center">X</div>
-</div>
-<div style="display:grid;grid-template-columns:repeat(4,1fr);width:240px">
-    <div style="height:60px;width:60px;display:grid;place-items:center;border-right:1px solid">O</div>
-    <div style="height:60px;width:60px;display:grid;place-items:center;border-right:1px solid">O</div>
-    <div style="height:60px;width:60px;display:grid;place-items:center;border-right:1px solid">O</div>
-    <div style="height:60px;width:60px;display:grid;place-items:center">X</div>
-</div>
-</div>
+|O|O|X|O|
+|-|-|-|-|
+|O|1|2|X|
+|O|O|O|X|
 
 ## どうやって遊ぶ？
 
