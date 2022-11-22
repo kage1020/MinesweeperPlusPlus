@@ -29,26 +29,10 @@ If O is a safe square and X is a mine square, the numbers displayed when the squ
 
 However, this is too difficult, so if there is only one mine around, **it will always show 1**.
 
-<div style="display:grid;place-items:center;text-align:center;font-size:2rem;margin-bottom:1rem">
-<div style="display:grid;grid-template-columns:repeat(4,1fr);width:240px;border-bottom:1px solid">
-    <div style="height:60px;width:60px;display:grid;place-items:center;border-right:1px solid">O</div>
-    <div style="height:60px;width:60px;display:grid;place-items:center;border-right:1px solid">O</div>
-    <div style="height:60px;width:60px;display:grid;place-items:center;border-right:1px solid">X</div>
-    <div style="height:60px;width:60px;display:grid;place-items:center">O</div>
-</div>
-<div style="display:grid;grid-template-columns:repeat(4,1fr);width:240px;border-bottom:1px solid">
-    <div style="height:60px;width:60px;display:grid;place-items:center;border-right:1px solid">O</div>
-    <div style="height:60px;width:60px;display:grid;place-items:center;border-right:1px solid">1</div>
-    <div style="height:60px;width:60px;display:grid;place-items:center;border-right:1px solid">2</div>
-    <div style="height:60px;width:60px;display:grid;place-items:center">X</div>
-</div>
-<div style="display:grid;grid-template-columns:repeat(4,1fr);width:240px">
-    <div style="height:60px;width:60px;display:grid;place-items:center;border-right:1px solid">O</div>
-    <div style="height:60px;width:60px;display:grid;place-items:center;border-right:1px solid">O</div>
-    <div style="height:60px;width:60px;display:grid;place-items:center;border-right:1px solid">O</div>
-    <div style="height:60px;width:60px;display:grid;place-items:center">X</div>
-</div>
-</div>
+|O|O|X|O|
+|-|-|-|-|
+|O|1|2|X|
+|O|O|O|X|
 
 ## How to play?
 
