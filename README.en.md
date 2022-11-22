@@ -1,5 +1,5 @@
-<h1 align="center" style="display:flex;justify-content:center;align-items:center">
-    <img src="public/mpp.svg" width="30" />
+<h1 align="center" style="display:flex;justify-content:center;align-items:center;font-size:3rem">
+    <img src="public/mpp.svg" width="40" />
     <span style="margin-left:0.5rem">Minesweeper++</span>
 </h1>
 
