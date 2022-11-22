@@ -142,7 +142,7 @@ export default function Home() {
             </button>
             <a
               className='border-4 rounded p-4 text-xl text-blue-500 border-blue-500 dark:text-blue-300 dark:border-blue-300'
-              href='https://forms.gle/k4sbBw6YyqHXzeYi9'
+              href='https://docs.google.com/forms/d/e/1FAIpQLSc_t3XtTd7dpoIcgaWoMOemFguE_BGj2px5sQ77ww0HkhKqYg/viewform?usp=pp_url&entry.1199509574=%E7%89%B9%E3%81%AB%E3%81%AA%E3%81%97'
               target='_blank'
               rel='noopener noreferrer'
             >
@@ -350,7 +350,7 @@ export default function Home() {
           &copy; kage1020
         </a>
         <a
-          href='https://forms.gle/k4sbBw6YyqHXzeYi9'
+          href='https://docs.google.com/forms/d/e/1FAIpQLSc_t3XtTd7dpoIcgaWoMOemFguE_BGj2px5sQ77ww0HkhKqYg/viewform?usp=pp_url&entry.1199509574=%E7%89%B9%E3%81%AB%E3%81%AA%E3%81%97'
           target='_blank'
           rel='noopener noreferrer'
           className='p-2'
