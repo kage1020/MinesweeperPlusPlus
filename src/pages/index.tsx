@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import logo from '../../public/mpp.svg';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { PlayIcon } from '@components/icon';
 import { getInitialMap, isFinished, openZeroGrid } from '@libs/tools';
@@ -47,6 +47,7 @@ export default function Home() {
   const [scene, setScene] = useState<SceneType>('start');
   const [board, setBoard] = useState<BoardType>([]);
   const [score, setScore] = useState(0);
+  const [highScore, setHighScore] = useState(0);
   const gridCount = board.map((v) => v[0] === 'CLOSED').filter((v) => v).length;
   const mineCount = grid[mode].mines - board.map((v) => v[0] === 'FLAG').filter((v) => v).length;
   const { seconds, minutes, hours, start, pause, reset } = useStopwatch({});
@@ -55,6 +56,7 @@ export default function Home() {
     if (type === 'OPEN' && board[index][1]) {
       pause();
       setScene('lose');
+      localStorage.setItem('high-score', String(Math.max(score, highScore)));
     } else {
       const newBoard: BoardType = board.map((_, i) =>
         i === index ? [type, board[i][1], board[i][2], board[i][3]] : board[i]
@@ -67,6 +69,7 @@ export default function Home() {
       setScore(score + 10 * board[index][3]);
       if (isFinished(newBoard)) {
         pause();
+        localStorage.setItem('high-score', String(Math.max(score + 1000, highScore)));
         setScore(score + 1000);
         setScene('win');
       }
@@ -77,8 +80,14 @@ export default function Home() {
     setMode('none');
     setScene('start');
     setBoard([]);
+    setScore(0);
     reset();
   };
+
+  useEffect(() => {
+    const highScore = Number(localStorage.getItem('high-score'));
+    if (highScore) setHighScore(Math.max(highScore, score));
+  }, [score]);
 
   return (
     <div className='min-w-max'>
@@ -318,6 +327,10 @@ export default function Home() {
               <div>
                 <span className='mr-2'>スコア：</span>
                 {score}
+              </div>
+              <div>
+                <span className='mr-2'>ハイスコア：</span>
+                {highScore}
               </div>
             </div>
             <Button className='bg-blue-500 text-white' onClick={resetGame}>
