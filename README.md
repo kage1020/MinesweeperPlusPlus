@@ -1,34 +1,47 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<h1 align="center" style="display:flex;justify-content:center;align-items:center;font-size:3rem">
+    <img src="public/mpp.svg" width="40" />
+    <span style="margin-left:0.5rem">Minesweeper++</span>
+</h1>
 
-## Getting Started
+* 日本語
+* [English](README.en.md)
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+## どんなゲーム？
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<p style="border:1px solid;padding:1rem;border-radius:1rem">
+このマインスイーパーの決着は神が握っている
+<br />
+<br />
+なぜまわりの地雷の数が正確にわかるのだろう？<br />
+見つけた地雷の数が実際の半分・・・なんてときもあるだろう<br />
+そんな不確定要素を掛け合わせたゲーム<br />
+</p>
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+* 普通のマインスイーパーです。
+* だけど普通のマインスイーパーよりも **運** が必要です。
+* そう簡単にクリアはさせません。
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+1つ例を示しましょう。
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+Oを安全なマス、Xを地雷マスとすると、マスを開いたときに表示される数字は下のようになります。2と書かれているマスは本来 **3** が表示されなければいけませんが、そうはなっていません。この例では地雷は" **2つしか見つからなかった**" のです。安全だと思って開いたら地雷が隠れていた、といったことが起こりうるわけですね。
 
-## Learn More
+ただ、これでは余りにも難しすぎるので、周りに地雷が1個しかない場合には **必ず1が表示される** ようになっています。
 
-To learn more about Next.js, take a look at the following resources:
+|O|O|X|O|
+|-|-|-|-|
+|O|1|2|X|
+|O|O|O|X|
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## どうやって遊ぶ？
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+[このページ](https://minesweeper-plus-plus.vercel.app/)にアクセスして画面の指示に従って遊んでください。
 
-## Deploy on Vercel
+操作したいマスを触ると、<svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="20" width="20" xmlns="http://www.w3.org/2000/svg"><desc></desc><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M17 4l3 3"></path><path d="M18.5 5.5l-8 8"></path><path d="M8.276 11.284l4.44 4.44a0.968 .968 0 0 1 0 1.369l-2.704 2.704a4.108 4.108 0 0 1 -5.809 -5.81l2.704 -2.703a0.968 .968 0 0 1 1.37 0z"></path></svg> と <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" ariaHidden="true" height="20" width="20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 2.25a.75.75 0 01.75.75v.54l1.838-.46a9.75 9.75 0 016.725.738l.108.054a8.25 8.25 0 005.58.652l3.109-.732a.75.75 0 01.917.81 47.784 47.784 0 00.005 10.337.75.75 0 01-.574.812l-3.114.733a9.75 9.75 0 01-6.594-.77l-.108-.054a8.25 8.25 0 00-5.69-.625l-2.202.55V21a.75.75 0 01-1.5 0V3A.75.75 0 013 2.25z" clip-rule="evenodd"></path></svg> が表示されます。それぞれ「マスを開く」・「旗を立てる」の操作ですので、どちらかを選択してゲームをクリアしてください。
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+<p align="center" style="font-size:1.5rem">ゲームのクリア画面を見れるよう頑張ってください。</p>
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+---
+
+<p align="center">Created by kage1020</p>
