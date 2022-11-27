@@ -106,6 +106,12 @@ export default function Home() {
         <meta name='twitter:title' content='Minesweeper++' />
         <meta name='twitter:description' content='new Minesweeper game with lack' />
         <meta name='twitter:image' content='/mpp.png' />
+        <meta property='og:title' content='Minesweeper++' />
+        <meta property='og:description' content='new Minesweeper game with lack' />
+        <meta property='og:url' content='https://minesweeper-plus-plus.vercel.app' />
+        <meta property='og:image' content='/mpp.png' />
+        <meta property='og:site_name' content='Minesweeper++' />
+        <meta property='og:locale' content='ja_JP' />
       </Head>
 
       <main className='p-4 min-h-[90vh] flex flex-col'>
