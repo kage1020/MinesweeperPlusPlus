@@ -11,6 +11,7 @@ import { MdDarkMode, MdOutlineLightMode } from 'react-icons/md';
 import useDarkMode from '@libs/useDarkMode';
 import { useStopwatch } from 'react-timer-hook';
 import Button from '@components/button';
+import useLogRocket from '@libs/useLogRocket';
 
 const grid = {
   none: {
@@ -51,6 +52,7 @@ export default function Home() {
   const gridCount = board.map((v) => v[0] === 'CLOSED').filter((v) => v).length;
   const mineCount = grid[mode].mines - board.map((v) => v[0] === 'FLAG').filter((v) => v).length;
   const { seconds, minutes, hours, start, pause, reset } = useStopwatch({});
+  useLogRocket();
 
   const handleAction = (type: CellType, index: number) => {
     if (type === 'OPEN' && board[index][1]) {
