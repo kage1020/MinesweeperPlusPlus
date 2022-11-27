@@ -96,7 +96,7 @@ export default function Home() {
       <Head>
         <title>Minesweeper++</title>
         <meta name='description' content='Minesweeper++' />
-        <link rel='icon' href='/favicon.ico' />
+        <link rel='icon' href='https://minesweeper-plus-plus.vercel.app/favicon.ico' />
         <link rel='manifest' href='manifest.json' />
         <link rel='apple-touch-icon' href='apple-touch-icon.png' />
         <meta name='description' content='new Minesweeper game with lack' />
@@ -105,11 +105,11 @@ export default function Home() {
         <meta name='twitter:site' content='@kage1020' />
         <meta name='twitter:title' content='Minesweeper++' />
         <meta name='twitter:description' content='new Minesweeper game with lack' />
-        <meta name='twitter:image' content='/mpp.png' />
+        <meta name='twitter:image' content='https://minesweeper-plus-plus.vercel.app/mpp.png' />
         <meta property='og:title' content='Minesweeper++' />
         <meta property='og:description' content='new Minesweeper game with lack' />
         <meta property='og:url' content='https://minesweeper-plus-plus.vercel.app' />
-        <meta property='og:image' content='/mpp.png' />
+        <meta property='og:image' content='https://minesweeper-plus-plus.vercel.app/mpp.png' />
         <meta property='og:site_name' content='Minesweeper++' />
         <meta property='og:locale' content='ja_JP' />
       </Head>
