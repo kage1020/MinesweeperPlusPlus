@@ -1,5 +1,6 @@
-import clsx from 'clsx';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react'
+
+import clsx from 'clsx'
 
 const Button = ({
   className = '',
@@ -7,24 +8,24 @@ const Button = ({
   onClick,
   children,
 }: {
-  className?: string;
-  disabled?: boolean;
-  onClick: () => void;
-  children: ReactNode;
+  className?: string
+  disabled?: boolean
+  onClick: () => void
+  children?: ReactNode
 }) => {
   return (
     <button
       type='button'
       className={clsx(
-        'font-semibold text-xl transition-all duration-200 ease-in w-[270px] text-center p-4',
-        className
+        'w-[20vw] min-w-[200px] p-4 text-center text-xl font-semibold transition-all duration-200 ease-in',
+        className,
       )}
       disabled={disabled}
       onClick={onClick}
     >
       {children}
     </button>
-  );
-};
+  )
+}
 
-export default Button;
+export default Button

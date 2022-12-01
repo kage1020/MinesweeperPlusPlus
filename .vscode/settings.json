@@ -1,4 +1,7 @@
 {
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
-  "cSpell.words": ["Bugsweeper"]
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
 }

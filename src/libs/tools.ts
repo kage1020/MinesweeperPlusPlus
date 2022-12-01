@@ -1,32 +1,57 @@
-import { BoardType, CellState } from '@pages';
+import type { BoardState, ModeType } from '@types'
 
-export const getInitialMap = (width: number, height: number, mines: number): BoardType => {
-  const mineMap = getRandomMines(width * height, mines);
-  const findMap = getFindMap(width * height);
-  const countMap = getMineCountMap(mineMap, width, height);
-  return Array(width * height)
+export const grid = {
+  none: {
+    width: 0,
+    height: 0,
+    mines: 0,
+  },
+  easy: {
+    width: 9,
+    height: 9,
+    mines: 10,
+  },
+  normal: {
+    width: 16,
+    height: 16,
+    mines: 40,
+  },
+  hard: {
+    width: 16,
+    height: 30,
+    mines: 99,
+  },
+}
+
+export const getInitialBoard = (mode: ModeType): BoardState => {
+  const mineBoard = getMineBoard(mode)
+  const findBoard = getFindBoard(mode)
+  const countBoard = getCountBoard(mineBoard, mode)
+
+  return Array(grid[mode].width * grid[mode].height)
     .fill(0)
-    .map((_, i) => ['CLOSED', mineMap[i], findMap[i], countMap[i]]);
-};
+    .map((_, i) => ['CLOSED', mineBoard[i], findBoard[i], countBoard[i]])
+}
 
-export const getRandomMines = (count: number, mines: number) => {
+const getMineBoard = (mode: ModeType) => {
+  const count = grid[mode].width * grid[mode].height
   const map = Array(count)
     .fill(0)
     .map((_, i) => i)
     .sort(() => Math.random() - 0.5)
-    .slice(0, mines);
+    .slice(0, grid[mode].mines)
   return Array(count)
     .fill(0)
-    .map((v, i) => map.includes(i));
-};
+    .map((_, i) => map.includes(i))
+}
 
-export const getFindMap = (count: number) => {
-  return Array(count)
+const getFindBoard = (mode: ModeType) =>
+  Array(grid[mode].width * grid[mode].height)
     .fill(0)
-    .map((_) => Math.random() / 2 + 0.5);
-};
+    .map(() => Math.random() / 2 + 0.5)
 
-export const getMineCountMap = (map: boolean[], width: number, height: number) => {
+const getCountBoard = (map: boolean[], mode: ModeType) => {
+  const width = grid[mode].width
   return map.map(
     (v, i) =>
       Number(!!map[i % width === 0 ? -1 : i - width - 1]) +
@@ -36,40 +61,42 @@ export const getMineCountMap = (map: boolean[], width: number, height: number) =
       Number(!!map[i % width === width - 1 ? -1 : i + 1]) +
       Number(!!map[i % width === 0 ? -1 : i + width - 1]) +
       Number(!!map[i + width]) +
-      Number(!!map[i % width === width - 1 ? -1 : i + width + 1])
-  );
-};
+      Number(!!map[i % width === width - 1 ? -1 : i + width + 1]),
+  )
+}
 
-export const isFinished = (map: BoardType) => {
-  const flagCount = map.map((v) => v[0] === 'FLAG' && v[1]).filter((v) => v).length;
-  const openCount = map.map((v) => v[0] === 'OPEN').filter((v) => v).length;
-  const mineCount = map.map((v) => v[1]).filter((v) => v).length;
+export const isFinished = (board: BoardState, mode: ModeType) => {
+  const flagCount = board.map((v) => v[0] === 'FLAG').filter((v) => v).length
+  const errorFlagCount = board.map((v) => v[0] === 'FLAG' && !v[1]).filter((v) => v).length
+  const openCount = board.map((v) => v[0] === 'OPEN').filter((v) => v).length
+  const mineCount = grid[mode].mines
 
-  return flagCount === mineCount || mineCount + openCount === map.length;
-};
+  return errorFlagCount == 0 && (mineCount + openCount === board.length || flagCount === mineCount)
+}
 
-export const openZeroGrid = (map: BoardType, index: number, width: number, height: number) => {
-  const newMap = map.slice();
-  let queue: number[] = [];
-  let target = index;
-  const minmax = (i: number) => Math.max(-1, Math.min(i, width * height));
+export const openZeroGrid = (board: BoardState, index: number, mode: ModeType): BoardState => {
+  const newBoard = board.slice()
+  const width = grid[mode].width
+  const height = grid[mode].height
+  const queue: number[] = []
+  let target = index
+  const minmax = (i: number) => Math.max(-1, Math.min(i, width * height))
 
   do {
-    if (!map[target][1]) {
-      newMap[target][0] = 'OPEN';
-      if (map[target][3] === 0) {
+    if (!board[target][1]) {
+      newBoard[target][0] = 'OPEN'
+      if (board[target][3] === 0) {
         const candidates = [
-          minmax(map[target][3] >= 1 ? -1 : target - width),
-          minmax(target % width === 0 || map[target][3] >= 1 ? -1 : target - 1),
-          minmax(target % width === width - 1 || map[target][3] >= 1 ? -1 : target + 1),
-          minmax(map[target][3] >= 1 ? -1 : target + width),
-        ].filter((v) => v !== -1 && v !== width * height && map[v][0] === 'CLOSED');
-        queue.push(...candidates);
+          minmax(target - width),
+          minmax(target % width === 0 ? -1 : target - 1),
+          minmax(target % width === width - 1 ? -1 : target + 1),
+          minmax(target + width),
+        ].filter((v) => v !== -1 && v !== width * height && board[v][0] === 'CLOSED')
+        queue.push(...candidates)
       }
     }
+    target = queue.pop() ?? -1
+  } while (target !== -1)
 
-    target = queue.pop() ?? -1;
-  } while (queue.length !== 0);
-
-  return map;
-};
+  return newBoard
+}
