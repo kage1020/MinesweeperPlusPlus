@@ -1,10 +1,9 @@
-<h1 align="center" style="display:flex;justify-content:center;align-items:center;font-size:3rem">
-    <img src="public/mpp.svg" width="40" />
-    <span style="margin-left:0.5rem">Minesweeper++</span>
+<h1 align="center">
+    <img src="public/title-light.png" width="420" />
 </h1>
 
-* [日本語](README.md)
-* English
+- [日本語](README.md)
+- English
 
 ---
 
@@ -19,9 +18,9 @@ Sometimes the number of landmines you find is half of what it really is...<br />
 A game that multiplies such uncertainties.<br />
 </p>
 
-* It is an usual minesweeper.
-* But it takes more **luck**.
-* We will not let you clear it so easily.
+- It is an usual minesweeper.
+- But it takes more **luck**.
+- We will not let you clear it so easily.
 
 Let me show you one example.
 
@@ -29,10 +28,10 @@ If O is a safe square and X is a mine square, the numbers displayed when the squ
 
 However, this is too difficult, so if there is only one mine around, **it will always show 1**.
 
-|O|O|X|O|
-|-|-|-|-|
-|O|1|2|X|
-|O|O|O|X|
+| O   | O   | X   | O   |
+| --- | --- | --- | --- |
+| O   | 1   | 2   | X   |
+| O   | O   | O   | X   |
 
 ## How to play?
 
