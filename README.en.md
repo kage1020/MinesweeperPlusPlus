@@ -1,5 +1,5 @@
 <h1 align="center">
-    <img src="public/title-light.png" width="420" />
+    <img src="public/title-light.png" alt="Minesweeper++" width="420" />
 </h1>
 
 - [日本語](README.md)

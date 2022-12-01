@@ -1,5 +1,6 @@
-import LogRocket from 'logrocket'
 import { useEffect } from 'react'
+
+import LogRocket from 'logrocket'
 import setupLogRocketReact from 'logrocket-react'
 
 const useLogRocket = () => {
