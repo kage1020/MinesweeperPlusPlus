@@ -8,7 +8,7 @@ import useGame from '@libs/useGame'
 import { TimeContext } from '@pages'
 
 const SelectScene = () => {
-  const { start } = useContext(TimeContext)
+  const { start, reset } = useContext(TimeContext)
   const { mode, setMode, switchNextScene } = useGame()
 
   return (
@@ -51,6 +51,7 @@ const SelectScene = () => {
           disabled={mode === 'none'}
           onClick={() => {
             switchNextScene()
+            reset()
             start()
           }}
         >

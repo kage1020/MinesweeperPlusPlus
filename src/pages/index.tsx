@@ -21,14 +21,17 @@ export const TimeContext = createContext({
   pause: () => {
     return
   },
+  reset: () => {
+    return
+  },
 })
 
 const Home: NextPage = () => {
   useLogRocket()
-  const { hours, minutes, seconds, start, pause } = useStopwatch({})
+  const { hours, minutes, seconds, start, pause, reset } = useStopwatch({})
 
   return (
-    <TimeContext.Provider value={{ hours, minutes, seconds, start, pause }}>
+    <TimeContext.Provider value={{ hours, minutes, seconds, start, pause, reset }}>
       <main className='relative p-4'>
         <Header />
         <div className='relative grid place-items-center'>
