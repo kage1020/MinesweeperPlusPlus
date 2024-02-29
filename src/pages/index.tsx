@@ -10,6 +10,7 @@ import LoseScene from '@scenes/lose'
 import PlayScene from '@scenes/play'
 import SelectScene from '@scenes/select'
 import StartScene from '@scenes/start'
+import WinScene from '@scenes/win'
 
 export const TimeContext = createContext({
   hours: 0,
@@ -40,6 +41,7 @@ const Home: NextPage = () => {
           <SelectScene />
           <PlayScene />
           <LoseScene />
+          <WinScene />
         </div>
       </main>
     </TimeContext.Provider>

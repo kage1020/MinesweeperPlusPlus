@@ -29,7 +29,11 @@ const PlayScene = () => {
           </span>
         </div>
         <div>
-          残りマス数:<span className='ml-1'>{grid[mode].width * grid[mode].height}</span>
+          残りマス数:
+          <span className='ml-1'>
+            {grid[mode].width * grid[mode].height -
+              board.filter((v) => v[0] === 'FLAG' || v[0] === 'OPEN').length}
+          </span>
         </div>
       </div>
       <div

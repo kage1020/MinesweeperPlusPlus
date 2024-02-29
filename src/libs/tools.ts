@@ -66,12 +66,12 @@ const getCountBoard = (map: boolean[], mode: ModeType) => {
 }
 
 export const isFinished = (board: BoardState, mode: ModeType) => {
-  const flagCount = board.map((v) => v[0] === 'FLAG').filter((v) => v).length
-  const errorFlagCount = board.map((v) => v[0] === 'FLAG' && !v[1]).filter((v) => v).length
-  const openCount = board.map((v) => v[0] === 'OPEN').filter((v) => v).length
+  const flagCount = board.filter((v) => v[0] === 'FLAG').length
+  const errorFlagCount = board.filter((v) => v[0] === 'FLAG' && !v[1]).length
+  const openCount = board.filter((v) => v[0] === 'OPEN').length
   const mineCount = grid[mode].mines
 
-  return errorFlagCount == 0 && (mineCount + openCount === board.length || flagCount === mineCount)
+  return errorFlagCount == 0 && mineCount + openCount === board.length
 }
 
 export const openZeroGrid = (board: BoardState, index: number, mode: ModeType): BoardState => {
