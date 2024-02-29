@@ -13,7 +13,7 @@ const SelectScene = () => {
 
   return (
     <SceneLayout scene='select'>
-      <div className='p-4 text-center text-2xl font-semibold text-gray-800 dark:text-white'>
+      <div className='p-4 text-center text-2xl font-semibold text-gray-800 duration-300 dark:text-white'>
         難易度を選択してください
       </div>
       <div className='grid items-center justify-center gap-4 p-4 text-center text-xl'>

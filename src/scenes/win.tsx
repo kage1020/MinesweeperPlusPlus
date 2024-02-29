@@ -12,11 +12,11 @@ const WinScene = () => {
     <SceneLayout scene='win' className='grid place-items-center gap-8'>
       <div className='text-center'>
         <div className='my-12 text-8xl font-bold text-lime-600 dark:text-lime-500'>You Win!</div>
-        <div className='dark:text-white'>
+        <div className='duration-300 dark:text-white'>
           素晴らしい！！神は君に微笑んだらしい。この調子で続けたまえ。
         </div>
       </div>
-      <div className='flex w-full justify-around rounded border-[3px] border-gray-700 p-4 text-center dark:border-white dark:text-white'>
+      <div className='flex w-full justify-around rounded border-[3px] border-gray-700 p-4 text-center duration-300 dark:border-white dark:text-white'>
         <div>
           <span className='mr-2'>プレイ時間：</span>
           {hours !== 0 && <span>{hours}:</span>}

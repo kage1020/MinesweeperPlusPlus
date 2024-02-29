@@ -40,7 +40,7 @@ const Cell = ({ index }: { index: number }) => {
     <div className='relative'>
       <button
         className={clsx(
-          'relative block max-h-[40px] max-w-[40px]',
+          'relative block max-h-[40px] max-w-[40px] duration-300',
           isMd ? 'text-base' : mode === 'easy' ? 'text-sm' : 'text-xs',
           state[0] === 'CLOSED' &&
             !selected &&

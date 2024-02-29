@@ -4,6 +4,7 @@ import { createContext } from 'react'
 import { useStopwatch } from 'react-timer-hook'
 
 import Header from '@components/Header'
+import ThemeSwitch from '@components/ThemeSwitch'
 import useLogRocket from '@libs/useLogRocket'
 import DescScene from '@scenes/desc'
 import LoseScene from '@scenes/lose'
@@ -34,6 +35,7 @@ const Home: NextPage = () => {
   return (
     <TimeContext.Provider value={{ hours, minutes, seconds, start, pause, reset }}>
       <main className='relative p-4'>
+        <ThemeSwitch />
         <Header />
         <div className='relative grid place-items-center'>
           <StartScene />

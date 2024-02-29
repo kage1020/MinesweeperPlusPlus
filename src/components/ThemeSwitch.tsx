@@ -7,7 +7,7 @@ const ThemeSwitch = () => {
 
   return (
     <button
-      className='absolute right-4 top-4 z-30 rounded border-[3px] border-gray-900 p-2 dark:border-white'
+      className='absolute right-4 top-28 z-30 rounded border-[3px] border-gray-900 p-2 duration-300 dark:border-white'
       onClick={() => toggleDark()}
     >
       {isDark && <MdDarkMode color='white' size={30} />}

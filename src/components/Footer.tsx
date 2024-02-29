@@ -1,7 +1,7 @@
 const Footer = () => {
   return (
     <footer className='flex flex-wrap items-center justify-center space-x-4 text-black dark:text-white'>
-      <div>ver 1.1.0</div>
+      <div>ver 1.2.0</div>
       <div>
         <a
           href='https://github.com/kage1020'

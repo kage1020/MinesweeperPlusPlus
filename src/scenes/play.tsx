@@ -16,7 +16,7 @@ const PlayScene = () => {
 
   return (
     <SceneLayout scene='play'>
-      <div className='mb-4 flex w-full justify-between rounded border-[3px] border-gray-900 bg-gray-100 p-4 text-sm dark:border-gray-100 dark:bg-gray-800 dark:text-white sm:text-base md:text-xl'>
+      <div className='mb-4 flex w-full justify-between rounded border-[3px] border-gray-900 bg-gray-100 p-4 text-sm duration-300 dark:border-gray-100 dark:bg-gray-800 dark:text-white sm:text-base md:text-xl'>
         <div className='flex items-center'>
           残り
           <FaBomb className='mx-1' />
@@ -36,11 +36,7 @@ const PlayScene = () => {
           </span>
         </div>
       </div>
-      <div
-        className={clsx(
-          'relative grid place-items-center gap-1 rounded border-[3px] border-gray-900 bg-gray-100 p-4 dark:border-gray-100 dark:bg-gray-800',
-        )}
-      >
+      <div className='relative grid place-items-center gap-1 rounded border-[3px] border-gray-900 bg-gray-100 p-4 duration-300 dark:border-gray-100 dark:bg-gray-800'>
         {scene === 'play' &&
           Array(grid[mode].height)
             .fill(0)

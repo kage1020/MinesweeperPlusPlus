@@ -11,12 +11,14 @@ const LoseScene = () => {
   return (
     <SceneLayout scene='lose' className='grid place-items-center gap-8'>
       <div className='text-center'>
-        <div className='my-12 text-8xl font-bold text-red-700 dark:text-red-600'>You Lose!</div>
-        <div className='dark:text-white'>
+        <div className='my-12 text-8xl font-bold text-red-700 duration-300 dark:text-red-600'>
+          You Lose!
+        </div>
+        <div className='duration-300 dark:text-white'>
           やはりクリアは無理か．．．気が向いたら再び挑戦するといい。
         </div>
       </div>
-      <div className='grid w-full flex-wrap justify-around rounded border-[3px] border-gray-700 p-4 text-center dark:border-white dark:text-white md:flex'>
+      <div className='grid w-full flex-wrap justify-around rounded border-[3px] border-gray-700 p-4 text-center duration-300 dark:border-white dark:text-white md:flex'>
         <div>
           <span className='mr-2'>プレイ時間：</span>
           {hours !== 0 && <span>{hours}:</span>}

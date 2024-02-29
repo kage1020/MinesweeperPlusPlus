@@ -6,7 +6,7 @@ const DescScene = () => {
   const { switchNextScene } = useGame()
   return (
     <SceneLayout scene='desc'>
-      <div className='max-w-[440px] rounded border-[3px] border-gray-700 p-4 text-justify tracking-wider dark:border-white dark:text-white md:max-w-[540px] md:text-xl'>
+      <div className='max-w-[440px] rounded border-[3px] border-gray-700 p-4 text-justify tracking-wider duration-300 dark:border-white dark:text-white md:max-w-[540px] md:text-xl'>
         <p className='mb-6'>このマインスイーパーの決着は神が握っている</p>
         <p className='mb-1'>なぜまわりの地雷の数が正確にわかるのだろう？</p>
         <p className='mb-1'>見つけた地雷の数が実際の半分・・・なんてときもあるだろう</p>
